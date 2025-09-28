@@ -6,6 +6,9 @@
 ### ✍️Любимая цитата
 > *Если код работает - не трогай!*
 
+![аааа](https://avatars.mds.yandex.net/i?id=3e3b9f13113c9fa7e43ab1a57f65f475_l-8334793-images-thumbs&n=13)
+
+
 
 ---
 
