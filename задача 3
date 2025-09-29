@@ -1,1 +1,17 @@
+def print_pack_report(cakes_amount):
+    if cakes_amount > 1:
+        while cakes_amount >= 1:
+            if cakes_amount % 5 == 0 and cakes_amount % 3 == 0:
+                print(f'{cakes_amount} - расфасуем по 3 или по 5')
+            elif cakes_amount % 5 == 0 and cakes_amount % 3 != 0:
+                print(f'{cakes_amount} - расфасуем по 5')
+            elif cakes_amount % 3 == 0 and cakes_amount % 5 != 0:
+                print(f'{cakes_amount} - расфасуем по 3')
+            else:
+                print(f'{cakes_amount} - не заказываем!')
+            cakes_amount -= 1
 
+
+cakes_amount = int(input('Введите количество пирожных'))
+
+print(print_pack_report(cakes_amount))
