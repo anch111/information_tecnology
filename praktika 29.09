@@ -1,1 +1,53 @@
+def shifr(text, num):
+    alph_rus = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+    alph_eng = 'abcdefghijklmnopqrstuvwxyz'
+    new_text = []
+    for i in range(len(text)):
+        if text[0] in alph_rus:
+            poz = alph_rus.index(text[i])
+            new_poz = poz + num
+            if new_poz > 32:
+                new_poz = new_poz % 32 - 1
+            new_text.append(alph_rus[new_poz])
+        elif text[0] in alph_eng:
+            poz = alph_eng.index(text[i])
+            new_poz = poz + num
+            if new_poz > 25:
+                new_poz = new_poz % 25 - 1
+            new_text.append(alph_eng[new_poz])
+    return new_text
+
+
+def deshifr(text, num):
+    alph_rus = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+    alph_eng = 'abcdefghijklmnopqrstuvwxyz'
+    new_text = []
+    for i in range(len(text)):
+        if text[0] in alph_rus:
+            poz = alph_rus.index(text[i])
+            new_poz = poz - num
+            if new_poz < 0:
+                new_poz = new_poz % 32 + 1
+            new_text.append(alph_rus[new_poz])
+        elif text[0] in alph_eng:
+            poz = alph_eng.index(text[i])
+            new_poz = poz - num
+            if new_poz < 0:
+                new_poz = new_poz % 25 + 1
+            new_text.append(alph_eng[new_poz])
+    return new_text
+
+
+text = input('введите строку')
+num = int(input('введите число'))
+
+
+if text.isalpha():
+    print('щифрованный:', shifr(text, num))
+    print('дещифрованный:', deshifr(text, num))
+else:
+    print('это не текст :(')
+
+
+            
 
