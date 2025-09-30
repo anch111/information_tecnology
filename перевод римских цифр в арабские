@@ -1,0 +1,49 @@
+roman_tests = ["IV", "IX", "XLII", "XCIX", "MMXXIII", 'X', 'CMXCIII', 'CXXXIX']
+spisok = []
+for i in roman_tests:
+    result = []
+    for j in i:
+        if len(i) >= 1:
+            if j == 'I':
+                j = 1
+            if j == 'V':
+                j = 5
+            if j == 'X':
+                j = 10
+            if j == 'L':
+                j = 50
+            if j == 'C':
+                j = 100
+            if j == 'D':
+                j = 500
+            if j == 'M':
+                j = 1000
+        result.append(j)
+    spisok.append(result)
+spisok3 = []
+for i in spisok:
+    spisok2 = []
+    if len(i) % 2 == 0:
+        for j in range(0, len(i)-1, 2):
+            if i[j] < i[j+1]:
+                spisok2.append(i[j+1] - i[j])
+            elif i[j] >= i[j+1]:
+                spisok2.append(i[j+1] + i[j])
+
+    elif len(i) == 1:
+        spisok2.append(i[0])
+    else:
+        for j in range(len(i)-2):
+            if i[j] < i[j+1]:
+                spisok2.append(i[j+1] - i[j])
+            elif i[j] > i[j+1] and i[j+1] != i[j+2]:
+                continue
+            elif i[j] == i[j+1] and i[j] != i[j+2]:
+                spisok2.append(i[j+1] + i[j])
+            elif i[j] == i[j+1] == i[j+2]:
+                spisok2.append(i[j+1] * 3)
+    spisok3.append(spisok2)
+result = []
+for i in spisok3:
+        result.append(sum(i))
+print(result)
