@@ -46,3 +46,7 @@ def roman_arabian(roman_test):
     for i in arabian_2:
         result.append(sum(i))
     return result
+
+
+roman_tests = ["IV", "IX", "XLII", "XCIX", "MMXXIII", 'X', 'CMXCIII', 'CXXXIX']
+print(roman_arabian(roman_tests))
