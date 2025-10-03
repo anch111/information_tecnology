@@ -1,0 +1,42 @@
+import random
+
+
+def random_password_generator(lower_case, upper_case, special_symbols, numbers, lenght):
+    alph = 'abcdefghijklmnopqrstuvwxyz'
+    special_symbols_alph = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`'
+    password = []
+    if lower_case == 'да' or lower_case == 'Да':
+        password.append(random.choice(alph))
+    if upper_case == 'да' or lower_case == 'Да':
+        password.append(random.choice(alph).upper())
+    if special_symbols == 'да' or special_symbols == 'Да':
+        password.append(random.choice(special_symbols_alph))
+    num_count = int(numbers)
+    total_length = int(lenght)
+    for i in range(num_count):
+        password.append(str(random.randint(0, 9)))
+    if len(password) > total_length:
+        password = password[:total_length]
+    else:
+        all_chars = ''
+        if lower_case in ('да', 'Да'):
+            all_chars += alph
+        if upper_case in ('да', 'Да'):
+            all_chars += alph.upper()
+        if special_symbols in ('да', 'Да'):
+            all_chars += special_symbols_alph
+        all_chars += '0123456789'
+        while len(password) < total_length:
+            password.append(random.choice(all_chars))
+    random.shuffle(password)
+    return ''.join(password)
+
+
+lower_case = input('Будет ли в пароле нижний регистр?')
+upper_case = input('Будет ли в пароле верхний регистр?')
+special_symbols = input('Будут ли в пароле специальные символы?')
+numbers = input('Количество цифр?')
+lenght = input('Длина пароля?')
+
+result = random_password_generator(lower_case, upper_case, special_symbols, numbers, lenght)
+print("Ваш пароль:", result)
