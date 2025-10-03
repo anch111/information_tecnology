@@ -1,6 +1,6 @@
-def roman_arabian(roman_test):
+def roman_arabian(test):
     arabian_1 = []
-    for i in roman_tests:
+    for i in test:
         result_1 = []
         for j in i:
             if len(i) >= 1:
@@ -48,5 +48,86 @@ def roman_arabian(roman_test):
     return result
 
 
-roman_tests = ["IV", "IX", "XLII", "XCIX", "MMXXIII", 'X', 'CMXCIII', 'CXXXIX']
-print(roman_arabian(roman_tests))
+def arabian_roman(test):
+    answ = []
+    for k in test:
+        if len(k) == 1:
+            answ.append([int(k)])
+            test.remove(k)
+    for i in test:
+        res = []
+        while len(i) > 1:
+            for j in range(10):
+                pr = j * (10 ** (len(i) - 1))
+                if pr % 10 == 0 and pr != 0 and int(i[1:(len(i))]) + pr == int(i):
+                    res.append(pr)
+                    if len(i) == 1:
+                        res.append(int(i))
+                    elif i[1:(len(i))][0] != '0':
+                        i = i[1:(len(i))]
+                        if len(i) == 1:
+                            res.append(int(i))
+                    elif i[1:(len(i))][0] == '0':
+                        i = i[1:]
+                        i = i[1:(len(i))]
+                    elif len(i) == 1:
+                        res.append(int(i))
+        answ.append(res)
+    answ2 = []
+    for i in answ:
+        answ3 = []
+        for j in i:
+            if len(str(j)) > 0:
+                if j == 1:
+                    k = 'I'
+                if int(j) / 10 in range(10):
+                    k = (int(j) // 10) * 'X'
+                if j == 50:
+                    k = 'L'
+                if int(j) / 100 in range(10):
+                    k = (int(j) // 100) * 'C'
+                if j == 500:
+                    k = 'D'
+                if int(j) / 1000 in range(10):
+                    k = (int(j) // 1000) * 'M'
+                if j == 2:
+                    k = 'II'
+                if j == 3:
+                    k = 'III'
+                if j == 4:
+                    k = 'IV'
+                if j == 6:
+                    k = 'VI'
+                if j == 7:
+                    k = 'VII'
+                if j == 8:
+                    k = 'VIII'
+                if j == 9:
+                    k = 'IX'
+                if int(j) == 900:
+                    k = 'CM'
+                if int(j) == 90:
+                    k = 'XC'
+                if int(j) == 40:
+                    k = 'XL'
+                if 'CCCCC' in k or 'XXXXX' in k or 'IIIII' in k:
+                    k = k.replace('CCCCC', 'D')
+                    k = k.replace('XXXXX', 'L')
+                    k = k.replace('IIIII', 'V')
+                answ3.append(k)
+        answ2.append(answ3)
+    line = []
+    for t in answ2:
+        if len(t) == 1:
+            line.append(t[0])
+        else:
+            line.append(''.join(t))
+    return line
+
+
+test = input('Введите число').split()
+if test[0][0] not in 'XCIVDM':
+    if int(test[0]) > 1:
+        print(arabian_roman(test)[0])
+else:
+    print(roman_arabian(test)[0])
