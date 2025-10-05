@@ -70,38 +70,42 @@ hangman = ("""
                 """
            )
 
-word = input('Загадайте слово')
-word2 = '_' * len(word)
-used = []
-lvl = 0
 
-while word2 != word:
-    if lvl > 5:
-        break
-    print(hangman[lvl])
-    print(word2)
-    guess = input('Введите букву')
-    while guess in used:
-        print('Вы уже вводили букву', guess)
+
+
+def gallows(word):
+    word2 = '_' * len(word)
+    used = []
+    lvl = 0
+    while word2 != word:
+        if lvl > 5:
+            break
+        print(hangman[lvl])
+        print(word2)
         guess = input('Введите букву')
-    used.append(guess)
-    if guess in word:
-        print('Верно!')
-        new_word = ''
-        for i in range(len(word)):
-            if word[i] == guess:
-                new_word += guess
-            else:
-                new_word += word2[i]
-        word2 = new_word
+        while guess in used:
+            print('Вы уже вводили букву', guess)
+            guess = input('Введите букву')
+        used.append(guess)
+        if guess in word:
+            print('Верно!')
+            new_word = ''
+            for i in range(len(word)):
+                if word[i] == guess:
+                    new_word += guess
+                else:
+                    new_word += word2[i]
+            word2 = new_word
+        else:
+            print('Неверно!')
+            lvl += 1
+
+    if lvl >= 5:
+        print(hangman[lvl])
+        print('Вы проиграли!')
     else:
-        print('Неверно!')
-        lvl += 1
+        print('Вы выиграли!')
 
-if lvl >= 5:
-    print(hangman[lvl])
-    print('Вы проиграли!')
-else:
-    print('Вы выиграли!')
+word = input('Загадайте слово')
 
-
+print(gallows(word))
