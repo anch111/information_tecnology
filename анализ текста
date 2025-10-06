@@ -1,0 +1,30 @@
+line = input('Введите строку')
+
+count_gl = 0
+count_sogl = 0
+count_space = line.count(' ')
+line = line.split()
+count_words = len(line)
+chastota = []
+
+for word in line:
+    for letter in word:
+        gl_letters = 'аеёиоуыэюя'
+        if letter in gl_letters:
+            count_gl += 1
+        else:
+            count_sogl += 1
+        if (word.count(letter), letter) not in chastota:
+            chastota.append(( word.count(letter), letter))
+        
+chastota.sort(reverse=True)
+
+max_word1 = chastota[0][1]
+max_word2 = chastota[1][1]
+max_word3 = chastota[3][1]
+
+print(f'количество гласных {count_gl}')
+print(f'количество согласных {count_sogl}')
+print(f'количество пробелов {count_space}')
+print(f'количество слов {count_words}')
+print('топ 3 часто встречаемых символа', max_word1, max_word2, max_word3)
