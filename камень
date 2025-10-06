@@ -1,0 +1,18 @@
+import random
+
+hod = ['камень', 'ножницы', 'бумага']
+
+for lvl in range(3):
+    s = input('введите ваш ход ')
+    comp = random.choice(hod)
+    if s == 'камень' and comp == 'бумага':
+        print('выиграл компьютер')
+    if s == comp:
+        print('ничья')
+    if s == 'камень' and comp == 'ножницы':
+        print('ты выиграл')
+    if s == 'ножницы' and comp == 'бумага':
+        print('ты выиграл')
+    if s == 'ножницы' and comp == 'камень':
+        print('выиграл компьютер')
+    if s == 'бумага'
