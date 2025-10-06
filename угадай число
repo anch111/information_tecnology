@@ -1,0 +1,23 @@
+import random
+
+
+hidden_number = random.randint(1, 100)
+
+for lvl in range(3):
+    guess = int(input('Введите число'))
+    if guess > hidden_number and lvl < 2:
+        print('Загаданное число меньше')
+    elif guess < hidden_number and lvl < 2:
+        print('Загаданное число больше')
+    elif lvl == 2 and guess != hidden_number:
+        print('Вы проиграли')
+        break
+    elif lvl == 1 and hidden_number % 2 == 0:
+        print('Загаданное число четное')
+        break
+    elif lvl == 1 and hidden_number % 2 != 0:
+        print('Загаданное число не четное')
+        break
+    elif guess == hidden_number:
+        print('ВЫ выиграли')
+        break 
