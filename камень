@@ -2,20 +2,34 @@ import random
 
 hod = ['камень', 'ножницы', 'бумага']
 
+comp_ball = 0
+tvoi_ball = 0
+
 for lvl in range(3):
-    s = input('введите ваш ход ')
+    s = input('введите ваш ход ').lower()
     comp = random.choice(hod)
-    if s == 'камень' and comp == 'бумага':
-        print('выиграл компьютер')
     if s == comp:
         print('ничья')
+    if s == 'камень' and comp == 'бумага':
+        print('ты проиграл')
+        comp_ball += 1
     if s == 'камень' and comp == 'ножницы':
         print('ты выиграл')
+        tvoi_ball += 1
     if s == 'ножницы' and comp == 'бумага':
         print('ты выиграл')
+        tvoi_ball += 1
     if s == 'ножницы' and comp == 'камень':
-        print('выиграл компьютер')
-    if s == 'бумага'
+        print('ты проиграл')
+        comp_ball += 1
+    if s == 'бумага' and comp == 'камень':
+        print('Ты выиграл')
+        tvoi_ball += 1
+    if s == 'бумага' and comp == 'ножницы':
+        print('Ты проиграл')
+        comp_ball += 1
 
-
-
+if tvoi_ball > comp_ball:
+    print(f'Ты победил со счетом {tvoi_ball}/{comp_ball}!!!')
+else:
+    print(f'Ты проиграл со счетом {comp_ball}/{tvoi_ball}!!!')
