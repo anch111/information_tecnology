@@ -1,0 +1,83 @@
+def creat_acc(acc_name2):
+    if acc_name2 not in bank_accounts:
+        bank_accounts[acc_name2] = 0
+        print('Счет создан!')
+    else:
+        print('Такой счет уже сущесвтует')
+        return
+
+
+def replenishment(acc_name2, summa):
+    if acc_name2 in bank_accounts:
+        bank_accounts[acc_name2] += summa
+        print('Баланс пополнен!')
+    else:
+        print('Такого счета не существует')
+        return
+
+
+def deduction(acc_name2, summa):
+    if bank_accounts[acc_name2] - summa < 0:
+        print('Недостаточно средств')
+    elif acc_name2 not in bank_accounts:
+        print('Такого счета не существует')
+    elif acc_name2 in bank_accounts:
+        bank_accounts[acc_name2] -= summa
+        print('Списание выпонено!')
+        return
+
+
+def balance(acc_name2):
+    if acc_name2 in bank_accounts:
+        print(bank_accounts[acc_name2])
+    else:
+        print('Такого счета не существует')
+        return
+
+
+def transfer(first_acc, second_acc, summa):
+    if first_acc == second_acc:
+        print('Ошибка!')
+    if first_acc in bank_accounts and second_acc in bank_accounts:
+        bank_accounts[first_acc] -= summa
+        bank_accounts[second_acc] += summa
+        print('Перевод выполнен!')
+    if first_acc not in bank_accounts or second_acc not in bank_accounts:
+        print('Такого счета не существует')
+        return
+
+
+bank_accounts = {}
+
+while True:
+    print('Если хотите создать банковский счет, введите "создать счет".')
+    print('Если хотите пополнить банковский счет, введите "пополнить счет".')
+    print('Если хотите списать средства с банковского счета, введите "списать со счета".')
+    print('Если хотите проверить баланс, введите "проверить баланс".')
+    print('Если хотите осуществить перевод средств с одного счета на другой, введите "перевести средства".')
+    print('Если хотите выйти из программы, введите "выход"')
+    operation = input('Введите название операции')
+
+    if operation == 'пополнить счет':
+        acc_name2 = input('Введите название пополняемого счета')
+        summa = int(input('Введите сумму, на которую хотите пополнить счет'))
+        replenishment(acc_name2, summa)
+    if operation == 'списать со счета':
+        acc_name2 = input('Введите название счета')
+        summa = int(input('Введите сумму, которую хотите списать'))
+        deduction(acc_name2, summa)
+    if operation == 'проверить баланс':
+        acc_name2 = input('Введите название счета')
+        balance(acc_name2)
+    if operation == 'перевести средства':
+        first_acc = input('Введите название счета, с которого хотите перевести средства')
+        second_acc = input('Введите название счета, на который хотите перевести средства')
+        summa = int(input('Введите сумму перевода'))
+        transfer(first_acc, second_acc, summa)
+    if operation == 'создать счет':
+        acc_name2 = input('Введите название счета')
+        creat_acc(acc_name2)
+    if operation == 'выход':
+        break
+
+
