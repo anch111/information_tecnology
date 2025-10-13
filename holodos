@@ -1,0 +1,45 @@
+import datetime
+from datetime import *
+from decimal import Decimal
+
+
+# def add(product_name, , срок_годности):
+#      product_name = input('Введите название продукта:')
+#      pr_amount = input('Введите его количество')
+#      expiration_date = input('Введите его срок годности')
+#      if product_name not in goods:
+#         goods[product_name] = [{'amount': Decimal(str(pr_amount)), 'expiration_date': expiration_date}]
+#      else:
+#         goods[product_name].a
+        
+
+def add(product_name=None, product_amount=float, expiration_date=None):
+    if product_name in goods:
+        goods[product_name].append({'amount': Decimal(product_amount), 'expiration_date': datetime.time(expiration_date)})
+    else:
+        goods[product_name] = [{'amount': Decimal(product_amount), 'expiration_date': datetime.time(expiration_date)}]
+        return goods
+    
+    
+goods = {
+    'Пельмени Универсальные': [
+        # Первая партия продукта 'Пельмени Универсальные':
+        {'amount': Decimal('0.5'), 'expiration_date': datetime.date(2023, 7, 15)},
+        # Вторая партия продукта 'Пельмени Универсальные':
+        {'amount': Decimal('2'), 'expiration_date': datetime.date(2023, 8, 1)},
+    ],
+    'Вода': [
+        {'amount': Decimal('1.5'), 'expiration_date': None}
+    ],
+}
+
+print(goods)
+while True:
+    product_name = input('Введите название продукта')
+    product_amount = input('Введите количество продукта')
+    expiration_date = (input('Введите дату истечения срока годности'))
+    add(product_name, product_amount, expiration_date)
+    print(goods)
+# a = '2025, 12, 31'
+
+print(datetime.now().strftime(a))
