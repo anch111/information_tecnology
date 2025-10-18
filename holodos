@@ -3,43 +3,93 @@ from datetime import *
 from decimal import Decimal
 
 
-# def add(product_name, , срок_годности):
-#      product_name = input('Введите название продукта:')
-#      pr_amount = input('Введите его количество')
-#      expiration_date = input('Введите его срок годности')
-#      if product_name not in goods:
-#         goods[product_name] = [{'amount': Decimal(str(pr_amount)), 'expiration_date': expiration_date}]
-#      else:
-#         goods[product_name].a
-        
-
-def add(product_name=None, product_amount=float, expiration_date=None):
+def add(product_name=None, product_amount=None, expiration_date=None):
+    amount = Decimal(product_amount)
+    exp_date = None
+    if expiration_date:
+        try:
+            exp_date = datetime.strptime(expiration_date, '%Y-%m-%d').date()
+        except ValueError:
+            print("❌Неверный формат даты. Используйте ГГГГ-ММ-ДД.")
+            exp_date = None
+    new_item = {'amount': amount, 'expiration_date': exp_date}
     if product_name in goods:
-        goods[product_name].append({'amount': Decimal(product_amount), 'expiration_date': datetime.time(expiration_date)})
+        goods[product_name].append(new_item)
     else:
-        goods[product_name] = [{'amount': Decimal(product_amount), 'expiration_date': datetime.time(expiration_date)}]
-        return goods
-    
-    
-goods = {
-    'Пельмени Универсальные': [
-        # Первая партия продукта 'Пельмени Универсальные':
-        {'amount': Decimal('0.5'), 'expiration_date': datetime.date(2023, 7, 15)},
-        # Вторая партия продукта 'Пельмени Универсальные':
-        {'amount': Decimal('2'), 'expiration_date': datetime.date(2023, 8, 1)},
-    ],
-    'Вода': [
-        {'amount': Decimal('1.5'), 'expiration_date': None}
-    ],
-}
+        goods[product_name] = [new_item]
 
-print(goods)
+
+def add_by_notes(product_name_new):
+    product_amount = ''
+    expiration_date = ''
+    product_name = []
+    if len(product_name_new) == 2:
+        product_name = product_name_new[0]
+        product_amount = product_name_new[1]
+    elif product_name_new[-1].isdigit() or '.' in product_name_new[-1] :
+        for i in range(len(product_name_new)):
+            while product_name_new[i].islower():
+                product_name.append(product_name_new[i])
+                break
+            continue
+        product_amount = (product_name_new[i])
+        expiration_date = ''
+        product_name = ' '.join(product_name)
+    else:
+        for i in range(len(product_name_new) - 1):
+            while product_name_new[i].islower():
+                product_name.append(product_name_new[i])
+                break
+            continue
+        product_amount = (product_name_new[i])
+        expiration_date = product_name_new[-1]
+        product_name = ' '.join(product_name)
+    return add(product_name, product_amount, expiration_date)
+
+
+def find(find_name):
+    list_finded_names = []
+    if find_name in goods:
+        for name in goods:
+            if name in find_name:
+                list_finded_names.append((name, amount(find_name)))
+        print('➡️', list_finded_names)
+    else:
+        print('❌Такого продукта нет в холодильнике!')
+    return
+
+def amount(find_name):
+    total = 0
+    for name in goods:
+        if name == find_name:
+            for inf in goods[name]:
+                if 'amount' in inf:
+                    total += inf['amount']
+    return total
+
+goods = {}
+
 while True:
-    product_name = input('Введите название продукта')
-    product_amount = input('Введите количество продукта')
-    expiration_date = (input('Введите дату истечения срока годности'))
-    add(product_name, product_amount, expiration_date)
-    print(goods)
-# a = '2025, 12, 31'
+    if len(goods) > 0:
+        print('---' * 50)
+        print('✅', goods)
+    print('---' * 50)
+    comm = input('Если хотите добавить продукт, введите "добавить"\nЕсли хотите найти продукт в холодильнике и узнать его количество введите "найти"\nЕсли хотите завершить программу, введите "стоп"')
+    print('---' * 50)
+    if comm == 'добавить':
+        product_name = input('Введите только название продукта ИЛИ введите название,\nколичество и дату окончания срока годности(ГГГГ-ММ-ДД) через пробелы ').lower()
+        if any(i.isdigit() for i in product_name):
+            product_name_new = product_name.split()
+            add_by_notes(product_name_new)
+        else:
+            product_amount = input('Введите количество продукта')
+            expiration_date = (input('Введите дату истечения срока годности(ГГГГ-ММ-ДД) или оставьте пустым'))
+            add(product_name, product_amount, expiration_date)
+    elif comm == 'найти':
+        find_name = input('Введите название продукта, который хотите найти').lower()
+        find(find_name)
 
-print(datetime.now().strftime(a))
+    elif comm == 'стоп':
+        break
+    else:
+        print('❗Неизвестный запрос!')
