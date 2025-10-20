@@ -1,0 +1,32 @@
+import random
+from random import *
+
+class Character:
+    def __init__(self, name, hp):
+        self.name = name
+        self.hp = hp
+        self.max_hp = hp
+        self.move = randint(1, 6)
+        
+    def is_alive(self):
+        self.hp > 0
+        
+    def take_damage(self, damage):
+        self.hp = max(0, self.hp - damage)
+        
+    def choose_attack(self, move):
+        if move > 4:
+            attack = 80
+        else:
+            attack = 40
+        
+class Dragon(Character):
+    def __init__(self):
+        super.__init__(self, name = 'Дракон', hp = 1000)
+        
+    
+        
+class Knight(Character):
+    def __init__(self):
+        super.__init__(self, name ='Рыцарь', hp = 400)
+        
