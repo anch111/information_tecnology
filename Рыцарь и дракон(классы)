@@ -1,6 +1,9 @@
 import random
 from random import randint
 
+from plot import hero_name
+
+
 class Character:
     def __init__(self, name=str, hp=int, attack=int, crit_attack = int):
         self.crit_attack = crit_attack
@@ -9,8 +12,10 @@ class Character:
         self.name = name
 
     def fight(self, other):
+        check_food = 0
         while other.hp > 0 and self.hp > 0:
-            print(f'{self.name} ататкует {other.name}. Бросте кости.')
+            print(f'{self.name} ататкует {other.name}.\n'
+                  f'[Нажми Enter, чтобы бросить кости...]')
             input('️🎲')
             hod = randint(1, 6)
             print(f'Выпавшее значение: {hod}.')
@@ -31,8 +36,9 @@ class Character:
             if self.hp <= 0:
                 print(f'{self.name} поражен.')
                 break
-
-            Knight.check_hp(player)
+            if check_food == 0:
+                Knight.check_hp(player)
+                check_food += 1
             print(f'{self.name}. Осталось {self.hp} единиц здоровья.')
             print(f'{other.name}. Осталось {other.hp} единиц здоровья.')
 
@@ -53,17 +59,25 @@ class Knight(Character):
     def inventory_check(self):
         if self.inventiry == 'food':
             self.food()
-            queat = input('сожрать?')
+            queat = input('Съесть сухарь и восполнить здоровье?')
             if queat.lower() == 'да':
-                print('да, он сожрал яблоко')
+                print('Вы съели сухарь. Ваше здоровье восполнено.')
                 self.inventiry = ''
         else:
-            print("о нет я блоко сожрал ктото друггой")
+            print("Кажется, карман пуст.")
+
+    def food_out(self):
+        self.inventiry = ''
 
     def check_hp(self):
         if self.hp <= 300:
-            print('кажется чето завалялось...э')
+            print('Кажется, у вас в кармане было что-то, что могло бы сейчас очень пригодиться...')
             Knight.inventory_check(self)
+
+    def low_hp_check(self):
+        if self.hp <= 0:
+            return True
+        return False
 
 class Dragon(Character):
     def __init__(self, name, hp, attack, crit_attack):
@@ -75,15 +89,14 @@ class Dragon(Character):
     def crit_attack_down(self):
         self.attack -= 50
 
+class Magician(Character):
+    def __init__(self, name, hp, attack, crit_attack):
+        super().__init__(name, hp, attack, crit_attack)
 
 
-# player = Knight('игорь', 600, 100, 300)
-# dragon = Dragon('дракоон', 1000, 75, 450)
-# Character.fight(player, dragon)
+player = Knight(hero_name, 600, 100, 300)
+dragon = Dragon('Дракон', 1000, 150, 450)
+magician = Magician('Маг', 700, 125, 400)
 
-# print('игорь занюхивает волшебный порошок')
-# Knight.attack_up(player)
-# Character.fight(player, dragon)
-# input()
 
 
