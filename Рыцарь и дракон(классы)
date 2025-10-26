@@ -112,11 +112,14 @@ def prompt():
 print("Добро пожаловать в мою мини игру!")
 prompt()
 hero_name = input('Введите имя своего персонажа: ')
+
 karma = 0
 player = Knight(hero_name, 600, 100, 300)
 dragon = Dragon('Дракон', 1000, 150, 450)
 magician = Magician('Маг', 700, 125, 400)
 
+print_slow('Помните, что каждое решение, принятое вами, имеет последствия!')
+prompt()
 
 print('\n=== Сон или явь? ===\n')
 
