@@ -1,15 +1,7 @@
 import sys
-
-
 import time
-
-
 import random
 from random import randint
-
-
-
-
 
 class Character:
     def __init__(self, name=None, hp=int, attack=int, crit_attack = int):
