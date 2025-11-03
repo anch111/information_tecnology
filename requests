@@ -1,0 +1,31 @@
+import requests
+
+def send_req(url: str | None = None) -> dict | bool:
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    return False
+
+def main():
+    url = 'https://swapi.dev/api/starships/10/'
+    data = send_req(url)
+    if not data:
+        print('nothing')
+        return
+
+    for i in data['pilots']:
+        a = send_req(i)
+        print(a['name']) 
+
+    print(data)
+#     print(f"name: {data['name']}")
+#     print(f"height: {data['height']}")
+#     print(f"mass: {data['mass']}")
+#     print(f"hair_color: {data['hair_color']}")
+#     print(f"skin_color: {data['skin_color']}")
+#     print(f"eye_color: {data['eye_color']}")
+    
+    
+#     data2 = send_req(data['homeworld'])
+#     print(f"{data['name']} родился на планете {data2['name']}")
+main()
