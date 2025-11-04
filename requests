@@ -1,4 +1,4 @@
-import requests////
+import requests///
 
 def send_req(url: str | None = None) -> dict | bool:
     response = requests.get(url)
